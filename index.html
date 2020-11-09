@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M2</title>
+
+    <script type="module" src="./src/main.js" defer></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <form id="register-museum-work-form" class="column center">
+      <label for="name">Nome da obra</label>
+      <input
+        data-test-id="name"
+        id="name"
+        class="text-input"
+        type="text"
+        maxlength="100"
+      />
+      <span id="nameErrorMessage" class="center form-error-message"></span>
+
+      <label for="author">Autor</label>
+      <input
+        data-test-id="author"
+        id="author"
+        class="text-input"
+        type="text"
+        maxlength="100"
+      />
+      <span id="authorErrorMessage" class="center form-error-message"></span>
+
+      <label for="releaseYear">Ano da obra</label>
+      <input
+        data-test-id="releaseYear"
+        id="releaseYear"
+        class="text-input"
+        type="text"
+        maxlength="4"
+      />
+      <span
+        id="releaseYearErrorMessage"
+        class="center form-error-message"
+      ></span>
+
+      <label for="period">Período da obra</label>
+      <select data-test-id="period" id="period">
+        <option value="">Selecionar período</option>
+        <option value="dc">d.C</option>
+        <option value="ac">a.C</option>
+      </select>
+      <span id="periodErrorMessage" class="center form-error-message"></span>
+
+      <label for="type">Tipo</label>
+      <select data-test-id="type" id="type">
+        <option value="">Selecionar tipo</option>
+        <option value="painting">Quadro</option>
+        <option value="sculpture">Escutura</option>
+        <option value="other">Outro</option>
+      </select>
+      <span id="typeErrorMessage" class="center form-error-message"></span>
+
+      <label for="details">Detalhes</label>
+      <span id="detailsErrorMessage" class="center form-error-message"></span>
+      <input  data-test-id="details" id="details" class="text-input" type="text" multiple />
+
+      <button data-test-id="submit" class="form-submit">Cadastrar</button>
+
+      <div data-test-id="works" id="works"></div>
+    </form>
+  </body>
+</html>
