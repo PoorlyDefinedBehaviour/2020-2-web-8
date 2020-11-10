@@ -62,7 +62,17 @@
 
       <label for="details">Detalhes</label>
       <span id="detailsErrorMessage" class="center form-error-message"></span>
-      <input  data-test-id="details" id="details" class="text-input" type="text" multiple />
+
+      <textarea
+        data-test-id="details"
+        id="details"
+        name="details"
+        class="text-input"
+        rows="5"
+        cols="33"
+        placeholder="Detalhes"
+      >
+      </textarea>
 
       <button data-test-id="submit" class="form-submit">Cadastrar</button>
 

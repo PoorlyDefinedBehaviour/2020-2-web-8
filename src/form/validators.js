@@ -1,33 +1,62 @@
 import * as either from "../data/either.js"
 import { partition } from "../utils/partition.js"
 
+const isEmpty = value => value === null || value === undefined || value === ""
+
+// compose :: [(a) -> Either String a] -> a -> Either String a
+export const compose = (...validators) => value => {
+  for (const validator of validators.slice().reverse()) {
+    const result = validator(value)
+    if (either.isLeft(result)) {
+      return result
+    }
+  }
+
+  return either.Right(value)
+}
+
 // required :: String -> a -> Either String a
-export const required = message => value =>
-  value ? either.Right(value) : either.Left(message)
+export const required = message => value => {
+  return isEmpty(value) ? either.Left(message) : either.Right(value)
+}
 
 // minLength :: Int -> String -> a -> Either String a
-export const minLength = (length, message) => value =>
-  value.length >= length ? either.Right(value) : either.Left(message)
-
-// yearInThePast :: String -> a -> Either String a
-export const yearInThePast = message => value => {
-  if (String(value).length !== 4) {
-    return either.Left(message)
+export const minLength = (length, message) => value => {
+  if (isEmpty(value)) {
+    return either.Right()
   }
 
-  if (!Number.isInteger(parseInt(value, 10))) {
-    return either.Left(message)
+  return value.length >= length ? either.Right(value) : either.Left(message)
+}
+
+// lessThan :: Number -> a -> Either String a
+export const lessThan = (target, message) => value => {
+  if (isEmpty(value)) {
+    return either.Right()
   }
 
-  if (parseInt(value, 10) > new Date().getFullYear()) {
+  if (Number(value) > target) {
     return either.Left(message)
   }
 
   return either.Right(value)
 }
 
+// integer :: String -> a -> Either String a
+export const integer = message => value => {
+  if (isEmpty(value)) {
+    return either.Right()
+  }
+
+  if (!Number.isInteger(parseInt(value, 10))) {
+    return either.Left(message)
+  }
+
+  return either.Right()
+}
+
 // value :: () -> a -> Either String a
-export const value = () => either.Right
+export const valueField = () => either.Right
 
 // collect : [Either(Error | String)] -> Either([Error | String])
 export const collect = list => {
